@@ -10,3 +10,10 @@ test('given the first line of input, create a rover', () => {
   expect(rover.y).toEqual(startingY)
   expect(rover.orientation).toEqual(startingOrientation)
 })
+
+test('should move rover forward', () => {
+  rover.move()
+  expect(rover.x).toEqual(startingX)
+  expect(rover.y).toEqual(startingY + 1)
+  expect(rover.orientation).toEqual(startingOrientation)
+})
