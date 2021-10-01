@@ -71,4 +71,12 @@ class Rover {
   }
 }
 
-module.exports = { Grid, Rover };
+class InputParser {
+  constructor (sizeString) {
+    const sizeX = parseInt(sizeString.split(' ')[0])
+    const sizeY = parseInt(sizeString.split(' ')[1])
+    this.grid = new Grid(sizeX, sizeY);
+  }
+}
+
+module.exports = { Grid, Rover, InputParser };

@@ -1,8 +1,7 @@
-const { Rover, Grid } = require('./index');
+const { Rover, Grid, InputParser } = require('./index');
 
-const sizeX = 5;
-const sizeY = 5;
-const grid = new Grid(sizeX, sizeY);
+const input = "5 4";
+const inputParser = new InputParser(input);
 
 const startingX = 1
 const startingY = 2
@@ -65,7 +64,7 @@ it('rover should print its location', () => {
   expect(console.log).toHaveBeenCalledWith(locationText);
 })
 
-it('given the first line of input, create a grid', () => {
-  expect(grid.sizeX).toEqual(sizeX)
-  expect(grid.sizeY).toEqual(sizeY)
+it('given the first line of input, input parser should create grid', () => {
+  expect(inputParser.grid.sizeX).toEqual(5)
+  expect(inputParser.grid.sizeY).toEqual(4)
 })
