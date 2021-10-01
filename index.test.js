@@ -51,3 +51,12 @@ test('should rotate when given rotate command', () => {
   rover.parseCommand('F')
   expect(rotateSpy).toHaveBeenCalledTimes(2);
 })
+
+it('rover should print its location', () => {
+  const rover = new Rover(startingX, startingY, startingOrientation);
+  const locationText = `${startingX} ${startingY} ${startingOrientation}`
+  console.log = jest.fn();
+  
+  rover.printCurrentLocation();
+  expect(console.log).toHaveBeenCalledWith(locationText);
+})

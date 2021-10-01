@@ -62,6 +62,10 @@ class Rover {
 
     this.orientation = directionArr[directionNum]
   }
+
+  printCurrentLocation() {
+    console.log(`${this.x} ${this.y} ${this.orientation}`);
+  }
 }
 
 module.exports = { Grid, Rover };
