@@ -32,6 +32,13 @@ test('should rotate the rover right', () => {
   expect(rover.orientation).toEqual('N')
 })
 
+test('should parse an F command', () => {
+  const spy = jest.spyOn(rover, 'move')
+  
+  rover.parseCommand('F')
+  expect(spy).toHaveBeenCalledTimes(1)
+})
+
 test('should rotate when given rotate command', () => {
   const rotateSpy = jest.spyOn(rover, 'rotate');
   

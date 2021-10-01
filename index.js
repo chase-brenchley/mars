@@ -15,6 +15,9 @@ class Rover {
       case 'R':
         this.rotate(cmd)
         break;
+      case 'F':
+        this.move()
+        break;
     }
   }
 
