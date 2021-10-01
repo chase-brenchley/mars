@@ -48,7 +48,7 @@ class Rover {
     } else if (direction === 'L') {
       directionNum--
 
-      if (directionNum === 0) {
+      if (directionNum === -1) {
         directionNum = 3
       }
     }

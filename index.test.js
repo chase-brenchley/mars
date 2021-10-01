@@ -31,3 +31,17 @@ test('should rotate the rover right', () => {
   rover.rotate('R')
   expect(rover.orientation).toEqual('N')
 })
+
+test('should rotate the rover left', () => {
+  rover.rotate('L')
+  expect(rover.orientation).toEqual('W')
+
+  rover.rotate('L')
+  expect(rover.orientation).toEqual('S')
+
+  rover.rotate('L')
+  expect(rover.orientation).toEqual('E')
+
+  rover.rotate('L')
+  expect(rover.orientation).toEqual('N')
+})
