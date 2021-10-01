@@ -17,3 +17,17 @@ test('should move rover forward', () => {
   expect(rover.y).toEqual(startingY + 1)
   expect(rover.orientation).toEqual(startingOrientation)
 })
+
+test('should rotate the rover right', () => {
+  rover.rotate('R')
+  expect(rover.orientation).toEqual('E')
+
+  rover.rotate('R')
+  expect(rover.orientation).toEqual('S')
+
+  rover.rotate('R')
+  expect(rover.orientation).toEqual('W')
+
+  rover.rotate('R')
+  expect(rover.orientation).toEqual('N')
+})
