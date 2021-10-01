@@ -9,8 +9,13 @@ class Rover {
     this.orientation = orientation
   }
 
-  parseCommand () {
-    
+  parseCommand (cmd) {
+    switch (cmd) {
+      case 'L':
+      case 'R':
+        this.rotate(cmd)
+        break;
+    }
   }
 
   move () {
@@ -37,7 +42,6 @@ class Rover {
     let directions = { N: 0, E: 1, S: 2, W: 3 }
     let directionArr = ['N', 'E', 'S', 'W']
     let directionNum = directions[this.orientation]
-    // let circleArr = directionArr[(directionArr.index % 4 + 4) % 4];
 
     if (direction === 'R') {
       directionNum++
@@ -55,25 +59,6 @@ class Rover {
 
     this.orientation = directionArr[directionNum]
   }
-
-  // private moveBasedOnCurrentDirection() {
-  //   switch this.orientation:
-  //     case 'N':
-  //       this.y++
-  //       break;
-      
-  //     case 'E':
-  //       this.x++
-  //       break;
-
-  //     case 'S':
-  //       this.y--
-  //       break;
-
-  //     case 'W':
-  //       this.x--
-  //       break;
-  // }
 }
 
 module.exports = { Grid, Rover };
