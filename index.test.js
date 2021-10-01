@@ -1,4 +1,4 @@
-const { Rover, Grid, InputParser } = require('./index');
+const { Rover, InputParser } = require('./index');
 
 const input = "5 4";
 const inputParser = new InputParser(input);

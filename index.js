@@ -79,4 +79,4 @@ class InputParser {
   }
 }
 
-module.exports = { Grid, Rover, InputParser };
+module.exports = { Rover, InputParser };
