@@ -1,11 +1,15 @@
 const { Rover, Grid } = require('./index');
 
+const sizeX = 5;
+const sizeY = 5;
+const grid = new Grid(sizeX, sizeY);
+
 const startingX = 1
 const startingY = 2
 const startingOrientation = 'N'
 const rover = new Rover(startingX, startingY, startingOrientation);
 
-test('given the first line of input, create a rover', () => {
+test('given the second line of input, create a rover', () => {
   expect(rover.x).toEqual(startingX)
   expect(rover.y).toEqual(startingY)
   expect(rover.orientation).toEqual(startingOrientation)
@@ -59,4 +63,9 @@ it('rover should print its location', () => {
   
   rover.printCurrentLocation();
   expect(console.log).toHaveBeenCalledWith(locationText);
+})
+
+it('given the first line of input, create a grid', () => {
+  expect(grid.sizeX).toEqual(sizeX)
+  expect(grid.sizeY).toEqual(sizeY)
 })

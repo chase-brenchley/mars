@@ -1,9 +1,12 @@
 class Grid {
-  
+  constructor (sizeX, sizeY) {
+    this.sizeX = sizeX
+    this.sizeY = sizeY
+  }
 }
 
 class Rover {
-  constructor(x, y, orientation) {
+  constructor (x, y, orientation) {
     this.x = x
     this.y = y
     this.orientation = orientation
