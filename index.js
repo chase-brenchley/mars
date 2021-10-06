@@ -117,4 +117,34 @@ class InputParser {
   }
 }
 
+const main = () => {
+  const readline = require("readline");
+  const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+  });
+  const inputParser = new InputParser()
+
+  rl.question("First line of input: ", function(firstLine) {
+      rl.question("Second line of input: ", function(secondLine) {
+        rl.question("Third line of input: ", thirdLine => {
+          const grid = inputParser.parseGridInput(firstLine)
+          const rover = inputParser.parseRoverCreateInput(secondLine)
+          rover.setGrid(grid)
+
+          inputParser.sendCommandToRover(thirdLine, rover)
+          rover.printCurrentLocation()
+          rl.close();
+        });
+      });
+  });
+
+  rl.on("close", function() {
+      console.log("\nBYE BYE !!!");
+      process.exit(0);
+  });
+}
+
+main()
+
 module.exports = { InputParser, Rover };
