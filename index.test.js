@@ -9,6 +9,7 @@ const startingX = 1
 const startingY = 2
 const startingOrientation = 'N'
 const globalRover = new Rover(startingX, startingY, startingOrientation);
+globalRover.setGrid(inputParser.parseGridInput(gridInput))
 
 test('given the second line of input, create a rover', () => {
   expect(globalRover.x).toEqual(startingX)
@@ -39,6 +40,7 @@ test('should rotate the rover right', () => {
 
 test('should parse an F command', () => {
   const rover = new Rover(startingX, startingY, startingOrientation)
+  rover.setGrid(inputParser.parseGridInput(gridInput))
   const spy = jest.spyOn(rover, 'move')
 
   rover.parseCommand('F')
@@ -83,12 +85,28 @@ it('given the second line of input, input parse should create a new rover', () =
 
 it('given the third and last line of input, input parser should send commands to the rover', () => {
   const rover = inputParser.parseRoverCreateInput(roverStartInput)
+  rover.setGrid(inputParser.parseGridInput(gridInput))
   const endingX = 1;
   const endingY = 3;
   const endingOrientation = 'N'
 
   inputParser.sendCommandToRover(commandInput, rover)
   
+  expect(rover.x).toEqual(endingX)
+  expect(rover.y).toEqual(endingY)
+  expect(rover.orientation).toEqual(endingOrientation)
+})
+
+it('rover should wrap at the end of the grid', () => {
+  const rover = inputParser.parseRoverCreateInput(roverStartInput)
+  rover.setGrid(inputParser.parseGridInput(gridInput))
+  
+  const endingX = 3;
+  const endingY = 2;
+  const endingOrientation = 'W'
+
+  inputParser.sendCommandToRover('LFFF', rover)
+
   expect(rover.x).toEqual(endingX)
   expect(rover.y).toEqual(endingY)
   expect(rover.orientation).toEqual(endingOrientation)

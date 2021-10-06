@@ -10,6 +10,11 @@ class Rover {
     this.x = x
     this.y = y
     this.orientation = orientation
+    this.grid = null
+  }
+
+  setGrid(grid) {
+    this.grid = grid;
   }
 
   parseCommand (cmd) {
@@ -22,29 +27,42 @@ class Rover {
         this.move()
         break;
     }
-
-    console.log(`After the command ${cmd}, the rover is now at position ${this.x}, ${this.y}, ${this.orientation}`)
   }
 
   move () {
     switch (this.orientation) { 
       case 'N':
-        this.y++
+        if (this.y < this.grid.sizeY) {
+          this.y++
+        } else {
+          this.y = 0
+        }
         break;
       
       case 'E':
-        this.x++
+        if (this.x < this.grid.sizeX) {
+          this.x++
+        } else {
+          this.x == 0
+        }
         break;
 
       case 'S':
-        this.y--
+        if (this.y === 0) {
+          this.y = this.grid.sizeY - 1
+        } else {
+          this.y--
+        }
         break;
 
       case 'W':
-        this.x--
+        if (this.x === 0) {
+          this.x = this.grid.sizeX - 1
+        } else {
+          this.x--
+        }
         break;
     }
-    console.log(this.y);
   }
 
   rotate (direction) {
@@ -76,7 +94,7 @@ class Rover {
 
 class InputParser {
   constructor (input) {
-    // const [gridSize, roverPos, cmds] = input.split('\n')
+
   }
 
   parseGridInput(input) {
