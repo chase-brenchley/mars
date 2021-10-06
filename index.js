@@ -22,6 +22,8 @@ class Rover {
         this.move()
         break;
     }
+
+    console.log(`After the command ${cmd}, the rover is now at position ${this.x}, ${this.y}, ${this.orientation}`)
   }
 
   move () {
@@ -42,6 +44,7 @@ class Rover {
         this.x--
         break;
     }
+    console.log(this.y);
   }
 
   rotate (direction) {
@@ -72,11 +75,28 @@ class Rover {
 }
 
 class InputParser {
-  constructor (sizeString) {
-    const sizeX = parseInt(sizeString.split(' ')[0])
-    const sizeY = parseInt(sizeString.split(' ')[1])
-    this.grid = new Grid(sizeX, sizeY);
+  constructor (input) {
+    // const [gridSize, roverPos, cmds] = input.split('\n')
+  }
+
+  parseGridInput(input) {
+    const sizeX = parseInt(input.split(' ')[0])
+    const sizeY = parseInt(input.split(' ')[1])
+    return new Grid(sizeX, sizeY)
+  }
+
+  parseRoverCreateInput(input) {
+    const xPos = parseInt(input.split(' ')[0])
+    const yPos = parseInt(input.split(' ')[1])
+    const orientation = input.split(' ')[2]
+    return new Rover(xPos, yPos, orientation)
+  }
+
+  sendCommandToRover(input, rover) {
+    for (let i = 0; i < input.length; i++) {
+      rover.parseCommand(input[i])
+    }
   }
 }
 
-module.exports = { Rover, InputParser };
+module.exports = { InputParser, Rover };
