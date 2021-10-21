@@ -11,6 +11,20 @@ class Rover {
     this.y = y
     this.orientation = orientation
     this.grid = null
+
+    if (orientation == 'N') {
+      this.setState(new NorthState(this))
+    } else if (orientation == 'E') {
+      this.setState(new EastState(this))
+    } else if (orientation == 'S') {
+      this.setState(new SouthState(this))
+    } else if (orientation == 'W') {
+      this.setState(new WestState(this))
+    }
+  }
+
+  setState(state) {
+    this.state = state;
   }
 
   setGrid(grid) {
@@ -20,75 +34,120 @@ class Rover {
   parseCommand (cmd) {
     switch (cmd) {
       case 'L':
+        this.state.moveLeft()
+        // forgot this break
+        break;
       case 'R':
-        this.rotate(cmd)
+        this.state.moveRight()
         break;
       case 'F':
-        this.move()
+        this.state.moveForward()
         break;
     }
-  }
-
-  move () {
-    switch (this.orientation) { 
-      case 'N':
-        if (this.y < this.grid.sizeY) {
-          this.y++
-        } else {
-          this.y = 0
-        }
-        break;
-      
-      case 'E':
-        if (this.x < this.grid.sizeX) {
-          this.x++
-        } else {
-          this.x == 0
-        }
-        break;
-
-      case 'S':
-        if (this.y === 0) {
-          this.y = this.grid.sizeY - 1
-        } else {
-          this.y--
-        }
-        break;
-
-      case 'W':
-        if (this.x === 0) {
-          this.x = this.grid.sizeX - 1
-        } else {
-          this.x--
-        }
-        break;
-    }
-  }
-
-  rotate (direction) {
-    let directions = { N: 0, E: 1, S: 2, W: 3 }
-    let directionArr = ['N', 'E', 'S', 'W']
-    let directionNum = directions[this.orientation]
-
-    if (direction === 'R') {
-      directionNum++
-
-      if (directionNum === 4) {
-        directionNum = 0
-      }
-    } else if (direction === 'L') {
-      directionNum--
-
-      if (directionNum === -1) {
-        directionNum = 3
-      }
-    }
-
-    this.orientation = directionArr[directionNum]
   }
 
   printCurrentLocation() {
     console.log(`${this.x} ${this.y} ${this.orientation}`);
+  }
+}
+
+class NorthState {
+
+  constructor(rover) {
+    this.rover = rover
+  }
+  
+  moveRight() {
+    this.rover.orientation = 'E'
+    this.rover.setState(new EastState(this.rover))
+  }
+
+  moveLeft() {
+    this.rover.orientation = 'W'
+    this.rover.setState(new WestState(this.rover))
+  }
+
+  moveForward() {
+    if (this.rover.y < this.rover.grid.sizeY) {
+      this.rover.y++
+    } else {
+      this.rover.y = 0
+    }
+  }
+}
+
+class WestState {
+
+  constructor(rover) {
+    this.rover = rover
+  }
+  
+  moveRight() {
+    this.rover.orientation = 'N'
+    this.rover.setState(new NorthState(this.rover))
+  }
+
+  moveLeft() {
+    this.rover.orientation = 'S'
+    this.rover.setState(new SouthState(this.rover))
+  }
+
+  moveForward() {
+    if (this.rover.x === 0) {
+      this.rover.x = this.rover.grid.sizeX - 1
+    } else {
+      this.rover.x--
+    }
+  }
+}
+
+class SouthState {
+
+  constructor(rover) {
+    this.rover = rover
+  }
+  
+  moveRight() {
+    this.rover.orientation = 'W'
+    this.rover.setState(new WestState(this.rover))
+  }
+
+  moveLeft() {
+    this.rover.orientation = 'E'
+    this.rover.setState(new EastState(this.rover))
+  }
+
+  moveForward() {
+    if (this.rover.y === 0) {
+      this.rover.y = this.rover.grid.sizeY - 1
+    } else {
+      this.rover.y--
+    }
+  }
+}
+
+class EastState {
+
+  constructor(rover) {
+    this.rover = rover
+  }
+  
+  moveRight() {
+    this.rover.orientation = 'S'
+    this.rover.setState(new SouthState(this.rover))
+  }
+
+  moveLeft() {
+    this.rover.orientation = 'N'
+    this.rover.setState(new NorthState(this.rover))
+  }
+
+  moveForward() {
+    if (this.rover.x < this.rover.grid.sizeX) {
+      this.rover.x++
+    } else {
+      this.rover.x == 0
+    }
   }
 }
 
@@ -112,7 +171,9 @@ class InputParser {
 
   sendCommandToRover(input, rover) {
     for (let i = 0; i < input.length; i++) {
+      // console.debug(`Rover is parsing ${input[i]} command. Its current position is x: ${rover.x}, y: ${rover.y}, ${rover.orientation}`)
       rover.parseCommand(input[i])
+      // console.debug(`After parsing command, its current position is x: ${rover.x}, y: ${rover.y}, ${rover.orientation}`)
     }
   }
 }
@@ -145,6 +206,6 @@ const main = () => {
   });
 }
 
-main()
+// main()
 
 module.exports = { InputParser, Rover };
